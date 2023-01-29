@@ -1,0 +1,27 @@
+.primary-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em 0;
+}
+
+.logo {
+  font-size: var(--fs-600);
+  text-decoration: none;
+  color: var(--clr-neutral-100);
+}
+
+.btn--login {
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  border: 1px solid var(--clr-neutral-100);
+  border-radius: 0.25rem;
+  padding: 0.5em 1.5em;
+  transition: background 0.25s ease;
+}
+
+.btn--login:is(:hover, :focus-visible) {
+  background-color: var(--clr-neutral-100);
+  color: var(--clr-neutral-900);
+}
