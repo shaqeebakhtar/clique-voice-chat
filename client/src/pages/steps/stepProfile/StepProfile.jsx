@@ -3,10 +3,10 @@ import ButtonContinue from "../../../components/button/ButtonContinue";
 
 const StepProfile = ({ onClick }) => {
   return (
-    <section>
+    <div className="step--profile">
       <h3 className="fw-black fs-title">Create your profile</h3>
       <ButtonContinue onClick={onClick} />
-    </section>
+    </div>
   );
 };
 

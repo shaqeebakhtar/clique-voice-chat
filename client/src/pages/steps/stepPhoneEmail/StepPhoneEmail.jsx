@@ -1,23 +1,40 @@
-import React from "react";
-import ButtonContinue from "../../../components/button/ButtonContinue";
+import React, { useState } from "react";
+import Phone from "./phone/Phone";
+import Email from "./email/Email";
+
+import "./StepPhoneEmail.css";
+
+const phoneEmail = {
+  phone: Phone,
+  email: Email,
+};
 
 const StepPhoneEmail = ({ onClick }) => {
+  const [type, setType] = useState("phone");
+  const Component = phoneEmail[type];
+
   return (
-    <section className="step">
-      <h3 className="fw-black fs-title">Enter Phone or Email</h3>
-      <div className="input">
-        <div>
-          <img
-            src="../../../../public/assets/flag.png"
-            alt="indian flag"
-            draggable="false"
-          />
-          <span>+91</span>
-        </div>
-        <input type="number" name="phone" placeholder="888-888-8888" />
+    <div className="step--phone-email">
+      <div className="tab-type">
+        <button
+          className={`btn-type btn--phone ${
+            type === "phone" ? "active" : ""
+          } | fw-bold`}
+          onClick={() => setType("phone")}
+        >
+          Phone
+        </button>
+        <button
+          className={`btn-type btn--email ${
+            type === "email" ? "active" : ""
+          } | fw-bold`}
+          onClick={() => setType("email")}
+        >
+          Email
+        </button>
       </div>
-      <ButtonContinue onClick={onClick} />
-    </section>
+      <Component onClick={onClick} />
+    </div>
   );
 };
 

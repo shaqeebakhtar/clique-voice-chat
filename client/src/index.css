@@ -1,8 +1,8 @@
 :root {
   --clr-neutral-100: hsl(0, 0%, 100%);
   --clr-neutral-200: hsl(210, 22%, 96%);
-  --clr-neutral-300: hsl(222, 5%, 57%);
-  --clr-neutral-500: hsl(214, 17%, 51%);
+  --clr-neutral-300: hsl(220, 2%, 31%);
+  --clr-neutral-500: hsl(0, 0%, 18%);
   --clr-neutral-700: hsl(240, 3%, 11%);
   --clr-neutral-900: hsl(240, 6%, 6%);
 
@@ -257,6 +257,11 @@ select {
 
 .fs-title {
   font-size: var(--fs-title);
+  line-height: 1.1;
+}
+
+.fs-title-sm {
+  font-size: var(--fs-title-sm);
   line-height: 1.1;
 }
 
