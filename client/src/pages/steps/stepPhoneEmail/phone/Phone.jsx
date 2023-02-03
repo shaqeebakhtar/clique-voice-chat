@@ -1,10 +1,22 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import ButtonContinue from "../../../../components/button/ButtonContinue";
+import { sendOtp } from "../../../../utils/fetchData";
+import { setOtp } from "../../../../redux/authSlice";
 
 import "./Phone.css";
 
 const Phone = ({ onClick }) => {
   const [phone, setPhone] = useState("");
+  const dispatch = useDispatch();
+
+  const getOtp = () => {
+    sendOtp({ phone: phone }).then((res) => {
+      console.log(res.data);
+      dispatch(setOtp({ phone: res.data.phone, hash: res.data.hash }));
+      onClick();
+    });
+  };
 
   return (
     <div className="step--phone">
@@ -29,7 +41,7 @@ const Phone = ({ onClick }) => {
           placeholder="888-888-8888"
         />
       </div>
-      <ButtonContinue onClick={onClick} />
+      <ButtonContinue onClick={getOtp} />
     </div>
   );
 };

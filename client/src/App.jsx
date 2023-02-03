@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Header from "./components/header/Header";
 import Home from "./pages/home/Home";
 import Rooms from "./pages/rooms/Rooms";
@@ -57,16 +58,14 @@ const App = () => {
   );
 };
 
-const isAuth = false;
-const user = {
-  activated: true,
-};
-
 const PublicRoute = ({ children }) => {
+  const { isAuth } = useSelector((state) => state.auth);
   return isAuth ? <Navigate to="/rooms" replace /> : children;
 };
 
 const SemiRestrictedRoute = ({ children }) => {
+  const { isAuth, user } = useSelector((state) => state.auth);
+
   return !isAuth ? (
     <Navigate to="/" replace />
   ) : isAuth && !user.activated ? (
@@ -77,6 +76,8 @@ const SemiRestrictedRoute = ({ children }) => {
 };
 
 const RestrictedRoute = ({ children }) => {
+  const { isAuth, user } = useSelector((state) => state.auth);
+
   return !isAuth ? (
     <Navigate to="/" replace />
   ) : isAuth && !user.activated ? (

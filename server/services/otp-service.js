@@ -22,9 +22,9 @@ class OtpService {
     });
   }
 
-  verifyOtp(hashedOtp, data) {
-    const hashedData = hashService.generateHash(data);
-    return hashedOtp === hashedData;
+  async verifyOtp(hashedOtp, data) {
+    const hashedData = await hashService.generateHash(data);
+    return hashedData === hashedOtp;
   }
 }
 
