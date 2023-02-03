@@ -15,5 +15,8 @@ export const sendOtp = async (data) => {
 export const verifyOtp = async (data) => {
   return await api.post("/api/verify-otp", data);
 };
+export const activateAccount = async (data) => {
+  return await api.post("/api/activate", data);
+};
 
 export default api;

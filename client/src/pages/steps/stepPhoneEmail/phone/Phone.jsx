@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import ButtonContinue from "../../../../components/button/ButtonContinue";
-import { sendOtp } from "../../../../utils/fetchData";
+import { sendOtp } from "../../../../utils/httpRequests";
 import { setOtp } from "../../../../redux/authSlice";
 
 import "./Phone.css";

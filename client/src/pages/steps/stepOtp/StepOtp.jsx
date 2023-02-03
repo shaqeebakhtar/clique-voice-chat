@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setAuth } from "../../../redux/authSlice";
-import { verifyOtp } from "../../../utils/fetchData";
-import ButtonContinue from "../../../components/button/ButtonContinue";
+import { verifyOtp } from "../../../utils/httpRequests";
 
 import "./StepOtp.css";
 
