@@ -3,6 +3,7 @@ import { batch, useDispatch, useSelector } from "react-redux";
 import { setName, setUsername, setAvatar } from "../../../redux/activateSlice";
 import { setAuth } from "../../../redux/authSlice";
 import { activateAccount } from "../../../utils/httpRequests";
+import Loader from "../../../components/loader/Loader";
 
 import "./StepProfile.css";
 
@@ -12,6 +13,8 @@ const StepProfile = () => {
   const [uname, setUname] = useState(username);
   const [fullName, setFullName] = useState(name);
   const [pic, setPic] = useState("../../../../public/assets/avatar.png");
+
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -30,6 +33,7 @@ const StepProfile = () => {
       dispatch(setName(fullName));
       dispatch(setUsername(uname));
     });
+    setLoading(true);
     try {
       await activateAccount({
         name: fullName,
@@ -42,8 +46,12 @@ const StepProfile = () => {
       });
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) return <Loader message="Activation in progess..." />;
 
   return (
     <div className="step--profile">

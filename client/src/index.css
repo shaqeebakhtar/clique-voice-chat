@@ -6,6 +6,10 @@
   --clr-neutral-700: hsl(240, 3%, 11%);
   --clr-neutral-900: hsl(240, 6%, 6%);
 
+  --clr-red: 0 80% 63%;
+  --clr-green: 160 67% 52%;
+  --clr-yellow: 34 100% 50%;
+
   --ff-primary: "Satoshi", sans-serif;
   --ff-heading: var(--ff-primary);
   --ff-body: var(--ff-primary);

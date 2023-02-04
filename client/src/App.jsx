@@ -12,12 +12,13 @@ import Rooms from "./pages/rooms/Rooms";
 import Authenticate from "./pages/authenticate/Authenticate";
 import Activate from "./pages/activate/Activate";
 import { useLoadingRefresh } from "./hooks/useLoadingRefresh";
+import Loader from "./components/loader/Loader";
 
 const App = () => {
   const { loading } = useLoadingRefresh();
 
   return loading ? (
-    "Loading..."
+    <Loader message="Loading, please wait..." />
   ) : (
     <Router>
       <Header />

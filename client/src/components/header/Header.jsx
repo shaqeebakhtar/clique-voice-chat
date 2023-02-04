@@ -34,7 +34,7 @@ const Header = () => {
             Sign In
           </Link>
         ) : (
-          <button className="btn--logout" onClick={logoutUser}>
+          <button className="btn--logout | fw-bold" onClick={logoutUser}>
             Logout
           </button>
         )}
