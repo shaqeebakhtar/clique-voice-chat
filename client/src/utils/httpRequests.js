@@ -18,6 +18,9 @@ export const verifyOtp = async (data) => {
 export const activateAccount = async (data) => {
   return await api.post("/api/activate", data);
 };
+export const logout = async () => {
+  return await api.post("/api/logout");
+};
 
 // interceptors
 api.interceptors.response.use(
