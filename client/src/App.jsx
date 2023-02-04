@@ -11,9 +11,11 @@ import Home from "./pages/home/Home";
 import Rooms from "./pages/rooms/Rooms";
 import Authenticate from "./pages/authenticate/Authenticate";
 import Activate from "./pages/activate/Activate";
+import { useLoadingRefresh } from "./hooks/useLoadingRefresh";
 
 const App = () => {
-  const [loading, setLoading] = useState(false);
+  const { loading } = useLoadingRefresh();
+
   return loading ? (
     "Loading..."
   ) : (
