@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,7 +13,10 @@ import Authenticate from "./pages/authenticate/Authenticate";
 import Activate from "./pages/activate/Activate";
 
 const App = () => {
-  return (
+  const [loading, setLoading] = useState(false);
+  return loading ? (
+    "Loading..."
+  ) : (
     <Router>
       <Header />
       <Routes>

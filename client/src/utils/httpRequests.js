@@ -19,4 +19,27 @@ export const activateAccount = async (data) => {
   return await api.post("/api/activate", data);
 };
 
+// interceptors
+api.interceptors.response.use(
+  (config) => {
+    return config;
+  },
+  async (error) => {
+    const originalReq = error.config;
+    if (error.response.status === 401 && originalReq && !originalReq._isRetry) {
+      originalReq._isRetry = true;
+      try {
+        await axios.get("/api/refresh", {
+          withCredentials: true,
+        });
+        return api.request(originalReq);
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+
+    throw error;
+  }
+);
+
 export default api;

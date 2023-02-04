@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import { setName, setUsername, setAvatar } from "../../../redux/activateSlice";
 import { setAuth } from "../../../redux/authSlice";
 import { activateAccount } from "../../../utils/httpRequests";
@@ -26,10 +26,16 @@ const StepProfile = () => {
   };
 
   const submit = async () => {
-    dispatch(setName(fullName));
-    dispatch(setUsername(uname));
+    batch(() => {
+      dispatch(setName(fullName));
+      dispatch(setUsername(uname));
+    });
     try {
-      await activateAccount({ fullName, uname, avatar }).then((res) => {
+      await activateAccount({
+        name: fullName,
+        username: uname,
+        avatar: pic,
+      }).then((res) => {
         if (res.data.auth) {
           dispatch(setAuth(res.data));
         }
