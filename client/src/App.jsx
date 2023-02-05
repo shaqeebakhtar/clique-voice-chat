@@ -8,7 +8,7 @@ import {
 import { useSelector } from "react-redux";
 import Header from "./components/header/Header";
 import Home from "./pages/home/Home";
-import Rooms from "./pages/rooms/Rooms";
+import Spaces from "./pages/spaces/Spaces";
 import Authenticate from "./pages/authenticate/Authenticate";
 import Activate from "./pages/activate/Activate";
 import { useLoadingRefresh } from "./hooks/useLoadingRefresh";
@@ -51,11 +51,11 @@ const App = () => {
           }
         />
         <Route
-          path="/rooms"
+          path="/spaces"
           exact
           element={
             <RestrictedRoute>
-              <Rooms />
+              <Spaces />
             </RestrictedRoute>
           }
         />
@@ -66,7 +66,7 @@ const App = () => {
 
 const PublicRoute = ({ children }) => {
   const { isAuth } = useSelector((state) => state.auth);
-  return isAuth ? <Navigate to="/rooms" replace /> : children;
+  return isAuth ? <Navigate to="/spaces" replace /> : children;
 };
 
 const SemiRestrictedRoute = ({ children }) => {
@@ -77,7 +77,7 @@ const SemiRestrictedRoute = ({ children }) => {
   ) : isAuth && !user.activated ? (
     children
   ) : (
-    <Navigate to="/rooms" replace />
+    <Navigate to="/spaces" replace />
   );
 };
 

@@ -6,7 +6,7 @@ import { setAuth } from "../../redux/authSlice";
 import "./Header.css";
 
 const Header = () => {
-  const { isAuth } = useSelector((state) => state.auth);
+  const { isAuth, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const logoutUser = async () => {
@@ -25,8 +25,8 @@ const Header = () => {
           Clique
         </Link>
       </div>
-      <div>
-        {!isAuth ? (
+      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+        {!isAuth && user.activated ? (
           <Link
             to="/"
             className="btn--login | fw-bold bg-neutral-900 text-neutral-100"
@@ -34,9 +34,37 @@ const Header = () => {
             Sign In
           </Link>
         ) : (
-          <button className="btn--logout | fw-bold" onClick={logoutUser}>
-            Logout
-          </button>
+          <div className="profile">
+            <div className="user">
+              <img className="user-avatar" src={user.avatar} alt={user.name} />
+              <div>
+                <p
+                  className="fw-medium fs-body-sm"
+                  style={{
+                    textAlign: "left",
+                    lineHeight: "0.9",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  {user.name}
+                </p>
+                <span
+                  className="username | text-neutral-300"
+                  style={{
+                    textAlign: "left",
+                    lineHeight: "0.9",
+                    fontSize: "0.875rem",
+                  }}
+                >
+                  @{user.username}
+                </span>
+              </div>
+            </div>
+            <button className="btn--logout | fw-bold" onClick={logoutUser}>
+              {/* Logout */}
+              <img src="../../../public/assets/logout.svg" draggable="false" />
+            </button>
+          </div>
         )}
       </div>
     </header>
