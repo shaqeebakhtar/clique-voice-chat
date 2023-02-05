@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CreateSpaceModal from "../../components/createSpaceModal/CreateSpaceModal";
 import SpaceCard from "../../components/spaceCard/SpaceCard";
+import { getAllSpaces } from "../../utils/httpRequests";
 import "./Spaces.css";
 
-const data = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
+// const spaces = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
 
 const Spaces = () => {
   const [showModal, setShowModal] = useState(false);
+  const [spaces, setSpaces] = useState([]);
+
+  useEffect(() => {
+    const fetchSpaces = async () => {
+      const { data } = await getAllSpaces();
+      setSpaces(data);
+    };
+    fetchSpaces();
+  }, []);
 
   return (
     <>
@@ -42,8 +52,8 @@ const Spaces = () => {
           </div>
         </header>
         <div className="spaces-list">
-          {data.map((obj) => (
-            <SpaceCard key={obj.id} />
+          {spaces.map((space) => (
+            <SpaceCard key={space.id} space={space} />
           ))}
         </div>
       </section>

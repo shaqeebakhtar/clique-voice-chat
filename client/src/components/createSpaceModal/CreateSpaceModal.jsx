@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import "./CreateSpaceModal.css";
 import { createSpace as create } from "../../utils/httpRequests";
+import { useNavigate } from "react-router-dom";
 
 const CreateSpaceModal = ({ onClose }) => {
   const [spaceType, setSpaceType] = useState("public");
   const [topic, setTopic] = useState("");
 
+  const navigate = useNavigate();
+
   const createSpace = async () => {
     try {
       if (!topic) return;
       const { data } = await create({ topic, spaceType });
+      navigate(`/space/${data.id}`);
       console.log(data);
     } catch (error) {
       console.log(error.message);

@@ -13,6 +13,7 @@ import Authenticate from "./pages/authenticate/Authenticate";
 import Activate from "./pages/activate/Activate";
 import { useLoadingRefresh } from "./hooks/useLoadingRefresh";
 import Loader from "./components/loader/Loader";
+import Space from "./pages/space/Space";
 
 const App = () => {
   const { loading } = useLoadingRefresh();
@@ -56,6 +57,15 @@ const App = () => {
           element={
             <RestrictedRoute>
               <Spaces />
+            </RestrictedRoute>
+          }
+        />
+        <Route
+          path="/space/:id"
+          exact
+          element={
+            <RestrictedRoute>
+              <Space />
             </RestrictedRoute>
           }
         />

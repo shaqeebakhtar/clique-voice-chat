@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./SpaceCard.css";
 
-const SpaceCard = () => {
+const SpaceCard = ({ space }) => {
   const colors = {
     0: "#FFBD56",
     1: "#FFADAD",
@@ -20,7 +20,7 @@ const SpaceCard = () => {
 
   return (
     <div
-      className="space | gap"
+      className="space | gap-lg"
       style={{ backgroundColor: colors[getRandomInt()] }}
     >
       <div className="host">
@@ -29,34 +29,28 @@ const SpaceCard = () => {
           className="fw-bold fs-body-sm"
           style={{ textTransform: "capitalize" }}
         >
-          john doe
+          {space.hostId.name}
         </p>
       </div>
-      <h4 className="space-topic | fw-black fs-title-sm">
-        Paranormal/Horror Experience Spare (Ask For Mic)
-      </h4>
+      <h4 className="space-topic | fw-black fs-title-sm">{space.topic}</h4>
       <div className="space__footer">
         <div className="liteners">
-          <img
-            className="listener__avatar"
-            src="https://source.unsplash.com/random/?avatar"
-            alt=""
-          />
-          <img
-            className="listener__avatar"
-            src="https://source.unsplash.com/random/?people"
-            alt=""
-          />
-          <img
-            className="listener__avatar"
-            src="https://source.unsplash.com/random/?person"
-            alt=""
-          />
+          {space.speakers.map((speaker) => (
+            <img
+              key={speaker.id}
+              className="listener__avatar"
+              src={speaker.avatar}
+              alt={speaker.name}
+            />
+          ))}
           <div className="listeners__count | fw-bold">
             <span>+99</span>
           </div>
         </div>
-        <Link to="/" className="btn--join | fw-bold fs-body-sm">
+        <Link
+          to={`/space/${space.id}`}
+          className="btn--join | fw-bold fs-body-sm"
+        >
           Join
         </Link>
       </div>

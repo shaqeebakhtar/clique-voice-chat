@@ -26,9 +26,9 @@ const Header = () => {
         </Link>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-        {!isAuth && user.activated ? (
+        {(!isAuth && !user) || !user.activated ? (
           <Link
-            to="/"
+            to="/authenticate"
             className="btn--login | fw-bold bg-neutral-900 text-neutral-100"
           >
             Sign In

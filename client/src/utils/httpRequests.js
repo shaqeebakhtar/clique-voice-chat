@@ -21,6 +21,12 @@ export const activateAccount = async (data) => {
 export const logout = async () => {
   return await api.post("/api/logout");
 };
+export const createSpace = async (data) => {
+  return await api.post("/api/spaces", data);
+};
+export const getAllSpaces = async () => {
+  return await api.get("/api/spaces");
+};
 
 // interceptors
 api.interceptors.response.use(
