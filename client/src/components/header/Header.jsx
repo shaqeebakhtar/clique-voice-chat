@@ -37,7 +37,7 @@ const Header = () => {
           <div className="profile">
             <div className="user">
               <img className="user-avatar" src={user.avatar} alt={user.name} />
-              <div>
+              <div style={{ display: "grid", gap: "0.5rem" }}>
                 <p
                   className="fw-medium fs-body-sm"
                   style={{

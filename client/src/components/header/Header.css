@@ -47,9 +47,9 @@
 }
 
 .user-avatar {
-  border: 3px solid var(--clr-neutral-700);
+  border: 3px solid var(--clr-neutral-500);
   border-radius: 50%;
-  width: 2.5rem;
+  width: 3rem;
   aspect-ratio: 1;
   object-fit: cover;
 }
