@@ -27,6 +27,9 @@ export const createSpace = async (data) => {
 export const getAllSpaces = async () => {
   return await api.get("/api/spaces");
 };
+export const getSpace = async (spaceId) => {
+  return await api.get(`/api/spaces/${spaceId}`);
+};
 
 // interceptors
 api.interceptors.response.use(

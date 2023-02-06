@@ -23,6 +23,11 @@ class SpacesController {
     const allSpaces = spaces.map((space) => new SpaceDto(space));
     return res.json(allSpaces);
   }
+
+  async show(req, res) {
+    const space = await spaceService.getSpace(req.params.spaceId);
+    return res.json(space);
+  }
 }
 
 module.exports = new SpacesController();

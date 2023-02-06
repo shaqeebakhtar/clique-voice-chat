@@ -11,5 +11,6 @@ router.get("/api/refresh", authController.refresh);
 router.post("/api/logout", authMiddleware, authController.logout);
 router.post("/api/spaces", authMiddleware, spacesController.createSpace);
 router.get("/api/spaces", authMiddleware, spacesController.index);
+router.get("/api/spaces/:spaceId", authMiddleware, spacesController.show);
 
 module.exports = router;

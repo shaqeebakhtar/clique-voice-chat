@@ -1,0 +1,41 @@
+.space-details__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 3em;
+}
+
+.btn--leave {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: hsl(var(--clr-red));
+}
+
+.joined-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.25em 0.5em;
+  background-color: var(--clr-neutral-700);
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.joined-user__avatar {
+  width: 3.75rem;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 0.25rem;
+}
+
+.joined-user__avatar img {
+  object-fit: cover;
+}
+
+.clients {
+  margin: 2em 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}

@@ -21,6 +21,12 @@ class SpaceService {
       .exec();
     return spaces;
   }
+
+  async getSpace(spaceId) {
+    const space = await SpaceModel.findOne({ _id: spaceId });
+
+    return space;
+  }
 }
 
 module.exports = new SpaceService();
