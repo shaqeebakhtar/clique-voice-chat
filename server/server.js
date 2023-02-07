@@ -36,7 +36,6 @@ app.use(router);
 const socketUserMapping = {};
 
 io.on("connection", (socket) => {
-  console.log("new connection", socket.id);
   socket.on(ACTIONS.JOIN, ({ spaceId, user }) => {
     socketUserMapping[socket.id] = user;
     const clients = Array.from(io.sockets.adapter.rooms.get(spaceId) || []);
@@ -74,6 +73,30 @@ io.on("connection", (socket) => {
     });
   });
 
+  // mute unmute
+  socket.on(ACTIONS.MUTE, ({ spaceId, userId }) => {
+    const clients = Array.from(io.sockets.adapter.rooms.get(spaceId) || []);
+
+    clients.forEach((clientId) => {
+      io.to(clientId).emit(ACTIONS.MUTE, {
+        peerId: socket.id,
+        userId,
+      });
+    });
+  });
+
+  socket.on(ACTIONS.UN_MUTE, ({ spaceId, userId }) => {
+    const clients = Array.from(io.sockets.adapter.rooms.get(spaceId) || []);
+
+    clients.forEach((clientId) => {
+      io.to(clientId).emit(ACTIONS.UN_MUTE, {
+        peerId: socket.id,
+        userId,
+      });
+    });
+  });
+
+  // leave space
   const leaveSpace = () => {
     const { rooms } = socket;
 

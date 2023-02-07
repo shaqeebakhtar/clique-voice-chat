@@ -4,24 +4,14 @@ import socketInit from "../socket/socket";
 import { ACTIONS } from "../actions";
 import freeice from "freeice";
 
-const users = [
-  {
-    id: 1,
-    name: "Shaqeeb A",
-  },
-  {
-    id: 2,
-    name: "John D",
-  },
-];
-
 export const useWebRTC = (spaceId, user) => {
   const [clients, setClients] = useStateWithCallback([]);
   const audioElements = useRef({});
   const connections = useRef({});
   const localMediaStream = useRef(null);
-
   const socket = useRef(null);
+  const clientsRef = useRef([]);
+
   useEffect(() => {
     socket.current = socketInit();
   }, []);
@@ -50,7 +40,7 @@ export const useWebRTC = (spaceId, user) => {
     };
 
     startCapture().then(() => {
-      addNewClient(user, () => {
+      addNewClient({ ...user, muted: true }, () => {
         const localElement = audioElements.current[user.id];
         if (localElement) {
           localElement.volume = 0;
@@ -93,7 +83,7 @@ export const useWebRTC = (spaceId, user) => {
 
       // on track connection
       connections.current[peerId].ontrack = ({ streams: [remoteStream] }) => {
-        addNewClient(remoteUser, () => {
+        addNewClient({ ...remoteUser, muted: true }, () => {
           if (audioElements.current[remoteUser.id]) {
             audioElements.current[remoteUser.id].srcObject = remoteStream;
           } else {
@@ -200,5 +190,55 @@ export const useWebRTC = (spaceId, user) => {
     };
   }, []);
 
-  return { clients, provideRef };
+  // listen for mute unmute
+
+  useEffect(() => {
+    clientsRef.current = clients;
+  }, [clients]);
+
+  useEffect(() => {
+    socket.current.on(ACTIONS.MUTE, ({ peerId, userId }) => {
+      setMute(true, userId);
+    });
+
+    socket.current.on(ACTIONS.UN_MUTE, ({ peerId, userId }) => {
+      setMute(false, userId);
+    });
+
+    const setMute = (mute, userId) => {
+      const clientIdx = clientsRef.current
+        .map((client) => client.id)
+        .indexOf(userId);
+
+      const connectedClients = JSON.parse(JSON.stringify(clientsRef.current));
+
+      if (clientIdx > -1) {
+        connectedClients[clientIdx].muted = mute;
+        setClients(connectedClients);
+      }
+    };
+  }, []);
+
+  // handle mute unmute
+  const handleMute = (isMuted, userId) => {
+    let settled = false;
+    let interval = setInterval(() => {
+      if (localMediaStream.current) {
+        localMediaStream.current.getTracks()[0].enabled = !isMuted;
+        if (isMuted) {
+          socket.current.emit(ACTIONS.MUTE, { spaceId, userId });
+        } else {
+          socket.current.emit(ACTIONS.UN_MUTE, { spaceId, userId });
+        }
+
+        settled = true;
+      }
+
+      if (settled) {
+        clearInterval(interval);
+      }
+    }, 200);
+  };
+
+  return { clients, provideRef, handleMute };
 };

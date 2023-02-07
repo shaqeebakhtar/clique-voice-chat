@@ -6,15 +6,26 @@ import { useWebRTC } from "../../hooks/useWebRTC";
 import { getSpace } from "../../utils/httpRequests";
 
 const Space = () => {
+  const [isMuted, setIsMuted] = useState(true);
   const [space, setSpace] = useState(null);
   const { id: spaceId } = useParams();
   const { user } = useSelector((state) => state.auth);
-  const { clients, provideRef } = useWebRTC(spaceId, user);
+  const { clients, provideRef, handleMute } = useWebRTC(spaceId, user);
+
   const navigate = useNavigate();
 
   const leaveSpace = () => {
     navigate("/spaces");
   };
+
+  const handleMuteClick = (clientId) => {
+    if (clientId !== user.id) return;
+    setIsMuted((isMuted) => !isMuted);
+  };
+
+  useEffect(() => {
+    handleMute(isMuted, user.id);
+  }, [isMuted]);
 
   useEffect(() => {
     const fetchSpace = async () => {
@@ -42,8 +53,20 @@ const Space = () => {
               <audio
                 ref={(instance) => provideRef(instance, client.id)}
                 autoPlay
-                muted
               ></audio>
+              <button
+                className={client.muted ? "btn--mic muted" : "btn--mic"}
+                onClick={() => handleMuteClick(client.id)}
+              >
+                {client.muted ? (
+                  <img
+                    src="../../../public/assets/microphone-slash.svg"
+                    alt=""
+                  />
+                ) : (
+                  <img src="../../../public/assets/microphone.svg" alt="" />
+                )}
+              </button>
               <div className="joined-user__avatar">
                 <img src={client.avatar} alt={client.name} />
               </div>
