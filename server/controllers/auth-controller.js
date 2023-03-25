@@ -77,11 +77,15 @@ class AuthController {
     res.cookie("refreshToken", refreshToken, {
       maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
       httpOnly: true,
+      sameSite: "none",
+      secure: true,
     });
 
     res.cookie("accessToken", accessToken, {
       maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
       httpOnly: true,
+      sameSite: "none",
+      secure: true,
     });
 
     const userDto = new UserDto(user);
@@ -126,7 +130,7 @@ class AuthController {
 
     // update token in db
     try {
-      tokenService.updateRefreshToken(userData._id, refreshToken);
+      await tokenService.updateRefreshToken(userData._id, refreshToken);
     } catch (error) {
       return res.status(500).json({ message: "internal error" });
     }
@@ -135,11 +139,15 @@ class AuthController {
     res.cookie("refreshToken", refreshToken, {
       maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
       httpOnly: true,
+      sameSite: "none",
+      secure: true,
     });
 
     res.cookie("accessToken", accessToken, {
       maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
       httpOnly: true,
+      sameSite: "none",
+      secure: true,
     });
 
     // response

@@ -10,10 +10,10 @@ const Phone = ({ onClick }) => {
   const [phone, setPhone] = useState("");
   const dispatch = useDispatch();
 
-  const getOtp = () => {
-    sendOtp({ phone: phone }).then((res) => {
-      console.log(res.data);
-      dispatch(setOtp({ phone: res.data.phone, hash: res.data.hash }));
+  const getOtp = async () => {
+    await sendOtp({ phone: phone }).then((res) => {
+      dispatch(setOtp({ phone: phone, hash: res.data.hash }));
+      alert(`Your OTP is ${res.data.otp}. Valid for 5 minutes - Clique`);
       onClick();
     });
   };
@@ -25,11 +25,7 @@ const Phone = ({ onClick }) => {
       </label>
       <div className="input-wrapper">
         <label htmlFor="phone" className="country-code">
-          <img
-            src="../../../../public/assets/flag.png"
-            alt="indian flag"
-            draggable="false"
-          />
+          <img src="/assets/flag.png" alt="indian flag" draggable="false" />
           <span className="fw-medium">+91</span>
         </label>
         <input
